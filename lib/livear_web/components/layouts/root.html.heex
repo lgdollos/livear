@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix="">
+      <%= assigns[:page_title] || "Livear" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.phoenix.min.js">
+    </script>
+    <script type="text/javascript">
+      window.addEventListener("phx:js-exec", ({detail}) => {
+        document.querySelectorAll(detail.to).forEach((el) => {
+          liveSocket.execJS(el, el.getAttribute(detail.attr))
+        })
+      })
+    </script>
+  </head>
+  <body class="bg-zinc-900 antialiased">
+    <%= @inner_content %>
+  </body>
+</html>
